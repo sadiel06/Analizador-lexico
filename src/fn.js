@@ -9,8 +9,7 @@ const identificarLex = (code) => {
   // let ComentM = /\/[*](.|\n)*?[*]\//g;
   let OperM = /(===|!==|[+][+=]|-[-=]|=[=<>]|[<>][=<>]|&&|[|][|])/g;
   let Oper1 = /([-+*/=()&|;:.,<>{}[\]])/g; // May be some character is missing?
-  // let ParentesisIzq = /^\(|\(/g;
-  // let ParentesisDer = /$\)|\)/g;
+
 
   //for (i=0;i<6;i++){let n=i+1}
 
@@ -22,8 +21,8 @@ const identificarLex = (code) => {
     if (char.match(Ident)) {
       identificador = identificador + char;
       if (
-        code.charAt(i + 1).match(Blancos) ||
-        code.charAt(i + 1).match(Oper1) 
+        !code.charAt(i + 1).match(Ident) /*||
+        code.charAt(i + 1).match(Oper1) */
       ) {
         codeCad = [...codeCad, identificador];
         identificador = "";
@@ -33,10 +32,10 @@ const identificarLex = (code) => {
     } else if (char.match(Nums)) {
       numero = numero + char;
 
-      if (
-        code.charAt(i + 1).match(Blancos) ||
+      if (!code.charAt(i + 1).match(Nums)
+        /*code.charAt(i + 1).match(Blancos) ||
         code.charAt(i + 1).match(Oper1) ||
-        code.charAt(i + 1).match(Ident)
+        code.charAt(i + 1).match(Ident)*/
       ) {
         codeCad = [...codeCad, numero];
         numero = "";
